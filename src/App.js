@@ -1,20 +1,30 @@
 import './App.css';
 import { useState } from "react"
 
+//useState Hook
+
 function App() {
-  const [textColor, setTextColor] = useState("");
+  const [age, setAge] = useState(0)
+
+  const increaseAge = () => {
+    setAge(age + 1)
+  }
+
+  const decreaseAge = () => {
+    setAge(age - 1)
+  }
+
+  const zero = () => {
+    setAge(0)
+  }
 
   return (
-    <div className="App">
-      <button onClick = { () => {
-        setTextColor(textColor === "black" ? "red" : "black")
-        }}
-      > 
-        Show/Hide 
-      </button>
-      <h1 style = {{ color: textColor }}>HELLO, MY NAME IS TEMITOPE</h1>;
+    <div className='App'>
+      {age}
+      <button onClick={increaseAge}>Increage Age</button>
+      <button onClick={decreaseAge}>Decreage Age</button>
+      <button onClick={zero}>Set to zero</button>
     </div>
   )
 }
-
 export default App;
