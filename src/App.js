@@ -1,29 +1,19 @@
 import './App.css';
 import { useState } from "react"
 
-//useState Hook
+//useState Hook - Input Text
 
 function App() {
-  const [age, setAge] = useState(0)
+  const [inputValue, setInputValue] = useState("")
 
-  const increaseAge = () => {
-    setAge(age + 1)
-  }
-
-  const decreaseAge = () => {
-    setAge(age - 1)
-  }
-
-  const zero = () => {
-    setAge(0)
+  const handleChange = (event) => {
+    setInputValue(event.target.value)
   }
 
   return (
     <div className='App'>
-      {age}
-      <button onClick={increaseAge}>Increage Age</button>
-      <button onClick={decreaseAge}>Decreage Age</button>
-      <button onClick={zero}>Set to zero</button>
+      <input type="text" onChange={handleChange} />
+      {inputValue}
     </div>
   )
 }
