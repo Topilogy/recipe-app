@@ -1,20 +1,20 @@
 import './App.css';
 import { useState } from "react"
 
-//useState Hook - Show and Hide Text
+//useState Hook - Text Color Change
 
 function App() {
-  const [showText, setShowText] = useState("true")
+  const [textColor, setTextColor] = useState("black")
 
   return (
     <div className='App'>
       <button onClick={() => {
-        setShowText(!showText)
+        setTextColor(textColor === "black" ? "red" : "black")
       }}
       >
         Show/Hide
       </button>
-      {showText &&<h1>Hey, how are you</h1>}
+      <h1 style={{ color: textColor }}>Hey, how are you</h1>
     </div>
   )
 }
