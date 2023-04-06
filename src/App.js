@@ -1,19 +1,20 @@
 import './App.css';
 import { useState } from "react"
 
-//useState Hook - Input Text
+//useState Hook - Show and Hide Text
 
 function App() {
-  const [inputValue, setInputValue] = useState("")
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value)
-  }
+  const [showText, setShowText] = useState("true")
 
   return (
     <div className='App'>
-      <input type="text" onChange={handleChange} />
-      {inputValue}
+      <button onClick={() => {
+        setShowText(!showText)
+      }}
+      >
+        Show/Hide
+      </button>
+      {showText &&<h1>Hey, how are you</h1>}
     </div>
   )
 }
