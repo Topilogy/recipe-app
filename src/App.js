@@ -1,21 +1,24 @@
-import './App.css';
-import { useState } from "react"
+import { useState } from "react";
+import React from "react";
 
-//useState Hook - Text Color Change
+// Task 1 - Clicking counting button 
 
 function App() {
-  const [textColor, setTextColor] = useState("black")
-
+  const value = localStorage.getItem('num')
+  const [number, setNumber] = useState(value ? JSON.parse(value) : 0);
+  
   return (
-    <div className='App'>
+    <div className="App">
       <button onClick={() => {
-        setTextColor(textColor === "black" ? "red" : "black")
-      }}
-      >
-        Show/Hide
+          setNumber(number + 1);
+          localStorage.setItem('num', JSON.stringify(number+1))
+        }}
+      > 
+        Click button
       </button>
-      <h1 style={{ color: textColor }}>Hey, how are you</h1>
+      <p>Number of clicks: {number}</p> 
     </div>
-  )
-}
+  );
+};
+
 export default App;
