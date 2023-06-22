@@ -1,23 +1,53 @@
-import { useState } from "react";
-import React from "react";
+import { useState, useEffect } from "react";
+import './App.css';
+import SearchBar from './components/SearchBar';
+import RecipeCard from './components/RecipeCard.jsx';
 
-// Task 1 - Clicking counting buttons
+const apiUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 
 function App() {
-  const value = localStorage.getItem('num')
-  const [number, setNumber] = useState(value ? JSON.parse(value) : 0);
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState("");
+  const [recipes, setRecipes] = useState([]);
+
+
+  const searcRecipes = async () => {
+    setIsLoading(true);
+    const url = apiUrl + query;
+    const res = await fetch(url);
+    const data = await res.json();
+    //console.log(data)
+    setRecipes(data.meals);
+    setIsLoading(false);
+  };
+   
+  useEffect (() => {
+    searcRecipes()
+  }, []);
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    searcRecipes()
+  };
+
   return (
-    <div className="App">
-      <button onClick={() => {
-          setNumber(number + 1);
-          localStorage.setItem('num', JSON.stringify(number+1))
-        }}
-      > Click button
-      </button>
-      <p>Number of clicks: {number}</p> 
+    <div className="container">
+      <h2> Our Recipe App</h2>
+      <SearchBar 
+        handleSubmit = {handleSubmit}
+        value = {query}
+        onChange = {event => setQuery(event.target.value)}
+        isLoading = {isLoading}
+      />
+      <div className="recipes">
+        {recipes 
+        ? recipes.map(recipe => (
+          <RecipeCard key={recipes.idMeal} recipe={recipe} />
+          ))
+        : "No Recipes!"}
+      </div>
     </div>
-  );
+  )
 };
 
 export default App;
